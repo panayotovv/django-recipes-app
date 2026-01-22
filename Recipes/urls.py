@@ -3,12 +3,12 @@ from django.urls import path
 
 from Recipes import views
 from Recipes.views import IndexView, AboutView, CustomLoginView, RegisterView, RecipesView, RecipeDetailView, \
-    ProfileView, ContactView, edit_profile
+    ProfileView, ContactView, EditProfileView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('profile/edit/', edit_profile, name='edit'),
+    path('profile/edit/', EditProfileView.as_view(), name='edit'),
     path('recipes/', RecipesView.as_view(), name='recipes'),
     path('about/', AboutView.as_view(), name='about'),
     path('contact/', ContactView.as_view(), name='contact'),

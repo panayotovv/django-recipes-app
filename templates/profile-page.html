@@ -4,23 +4,30 @@
 <div class="min-h-screen bg-cover bg-center bg-fixed flex items-center justify-center"
      style="background-image: url('{% static "images/imagedark.jpg" %}');">
 
-  <div class="recipe-card opacity-0 translate-y-10 transition-all duration-700 max-w-7xl mx-auto my-12 bg-white rounded-2xl shadow-xl overflow-hidden">
+  <div class="recipe-card opacity-0 translate-y-10 transition-all duration-700 mx-auto bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-4xl min-w-[700px]
+">
 
-    <div class="bg-gradient-to-r from-slate-900 to-slate-700 p-8 flex items-center gap-6">
-      <img
-        src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
-        alt="Chef"
-        class="w-28 h-28 rounded-full border-4 border-slate-600 object-cover"
-      />
-      <div>
-        <h1 class="text-3xl font-bold text-white">Chef {{ user.first_name }}</h1>
+    <div class="bg-gradient-to-r from-slate-900 to-slate-700 p-8 flex flex-col sm:flex-row items-center gap-6">
+
+      <form id="profile-pic-form" method="post" enctype="multipart/form-data" action="{% url 'edit' %}">
+        {% csrf_token %}
+        <label for="id_profile_picture">
+          <img src="{{ profile_picture_url }}" alt="Profile picture"
+               class="w-28 h-28 rounded-full border-4 border-slate-600 object-cover cursor-pointer hover:opacity-80">
+        </label>
+        <input type="file" name="profile_picture" id="id_profile_picture" style="display: none;" onchange="this.form.submit()">
+      </form>
+
+      <div class="flex-1 text-center sm:text-left">
+        <h1 class="text-3xl font-bold text-white">Chef {{ user.first_name }} {{ user.last_name }}</h1>
       </div>
+
       <a href="{% url 'edit' %}">
-        <button class="text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded transition-colors duration-300 cursor-pointer">
-          <i class="fa-solid fa-pen-to-square"></i>
-          Edit
+        <button class="text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded transition-colors duration-300 cursor-pointer mt-4 sm:mt-0">
+          <i class="fa-solid fa-pen-to-square"></i> Edit
         </button>
       </a>
+
     </div>
 
     <div class="p-8 space-y-12">
@@ -35,31 +42,32 @@
       <section>
         <h2 class="text-2xl font-semibold mb-6 text-slate-900">Favorite Recipes</h2>
 
+        {% if favorite_recipes %}
         <div class="overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory pb-5 hide-scrollbar">
-          <div class="flex gap-6 px-4 w-full justify-center">
-          {% if favorite_recipes %}
-              <div class="flex gap-6 px-4 w-full">
+          <div class="flex gap-6 px-4">
+
             {% for recipe in favorite_recipes %}
-              <div class="bg-white rounded-xl shadow-lg snap-start shrink-0 w-[85%] sm:w-[400px]">
-                <a href="{% url 'recipe-detail' recipe.pk %}">
-                  <img src="{{ recipe.image }}" class="w-full h-48 object-cover cursor-pointer">
+            <div class="bg-white rounded-xl shadow-lg snap-start shrink-0 w-[300px] sm:w-[400px]">
+              <a href="{% url 'recipe-detail' recipe.pk %}">
+                <img src="{{ recipe.image }}" class="w-full h-48 object-cover cursor-pointer">
+              </a>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2 text-slate-900">{{ recipe.title }}</h3>
+                <p class="text-gray-600 mb-4">
+                  {{ recipe.description }}
+                </p>
+                <a href="{% url 'recipe-detail' recipe.pk %}" class="inline-block bg-slate-900 text-white px-4 py-2 rounded">
+                  View Recipe
                 </a>
-                <div class="p-6">
-                  <h3 class="text-xl font-semibold mb-2 text-slate-900">{{ recipe.title }}</h3>
-                  <p class="text-gray-600 mb-4">
-                    {{ recipe.description }}
-                  </p>
-                  <a href="{% url 'recipe-detail' recipe.pk %}" class="inline-block bg-slate-900 text-white px-4 py-2 rounded">
-                    View Recipe
-                  </a>
-                </div>
               </div>
+            </div>
             {% endfor %}
-          {% else %}
-              <h2 class="text-2xl font-normal mb-3 text-slate-900">No recipes added.</h2>
-          {% endif %}
+
           </div>
         </div>
+        {% else %}
+          <h2 class="text-2xl font-normal mb-3 text-slate-900 text-center">No recipes added.</h2>
+        {% endif %}
 
       </section>
     </div>

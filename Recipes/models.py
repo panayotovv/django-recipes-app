@@ -46,6 +46,12 @@ class Recipe(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    profile_picture = models.ImageField(
+        upload_to='profile_pics/',
+        blank=True,
+        null=True,
+        default='default.jpg'
+    )
     bio = models.TextField(blank=True)
 
     def __str__(self):

@@ -36,7 +36,6 @@ class CustomLoginForm(AuthenticationForm):
     pass
 
 
-
 class CustomEditForm(forms.ModelForm):
     password = forms.CharField(
         required=False,
@@ -104,3 +103,7 @@ class ProfileForm(forms.ModelForm):
         fields = ['bio']
 
 
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["profile_picture"]

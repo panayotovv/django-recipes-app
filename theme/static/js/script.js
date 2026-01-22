@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Intersection Observer for card animations ---
     const cards = document.querySelectorAll('.recipe-card');
 
     const observer = new IntersectionObserver(entries => {
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cards.forEach(card => observer.observe(card));
 
-    // --- Favorite button AJAX ---
     const favBtns = document.querySelectorAll(".favoriteBtn");
 
     favBtns.forEach(favBtn => {
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- CSRF helper ---
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -57,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return cookieValue;
     }
 
-    // --- Recipe search filter ---
     const searchInput = document.getElementById('recipeSearch');
 
     if (searchInput) {
@@ -74,3 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
