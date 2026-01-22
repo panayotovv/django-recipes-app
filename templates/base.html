@@ -1,0 +1,81 @@
+{% load static tailwind_tags %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-pap..(truncated)..==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+</head>
+<body class="m-0 p-0 w-full bg-white">
+    <nav class="bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-xl font-bold cursor-default">
+                MyCook
+            </div>
+            <div class="flex gap-6">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile'%}" class="hover:text-slate-300">Profile</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="hover:text-slate-300">Login</a>
+                {% endif %}
+                    <a href="{% url 'home' %}" class="hover:text-slate-300">Home</a>
+                    <a href="{% url 'recipes' %}" class="hover:text-slate-300">Recipes</a>
+                    <a href="{% url 'about' %}" class="hover:text-slate-300">About</a>
+                    <a href="{% url 'contact' %}" class="hover:text-slate-300">Contact</a>
+
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="hover:text-slate-300 cursor-pointer">Logout</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<footer class="bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <div>
+      <h4 class="text-xl font-semibold mb-4">MyCook</h4>
+      <p class="text-gray-300">
+        Discover recipes, share your favorites, and celebrate every bite. Cook, create, and enjoy!
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-slate-300 transition-colors">Profile</a></li>
+        <li><a href="#" class="hover:text-slate-300 transition-colors">Recipes</a></li>
+        <li><a href="#" class="hover:text-slate-300 transition-colors">About</a></li>
+        <li><a href="#" class="hover:text-slate-300 transition-colors">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-xl font-semibold mb-4">Contact</h4>
+      <p class="text-gray-300 mb-2">Email: info@mycook.com</p>
+      <p class="text-gray-300 mb-4">Phone: +1 234 567 890</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-slate-300 transition-colors">Facebook</a>
+        <a href="#" class="hover:text-slate-300 transition-colors">Instagram</a>
+        <a href="#" class="hover:text-slate-300 transition-colors">Twitter</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-slate-700 mt-8 pt-4 text-center text-gray-400 text-sm">
+    &copy; 2026 MyCook. All rights reserved.
+  </div>
+</footer>
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>

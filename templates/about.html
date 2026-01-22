@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="flex relative bg-cover bg-center w-full items-center justify-center"
+          style="height: calc(100vh - 60px); background-image: url('{% static "images/image.jpg" %}');">
+        <div>
+            <div class="recipe-card opacity-0 translate-y-10 transition-all duration-700 bg-slate-900 max-w-3xl mx-auto my-15 rounded-2xl p-8 mt-0">
+                <h1 class="text-white text-center text-3xl font-bold mb-4">
+                    About MyCook
+                </h1>
+
+                <p class="text-white text-center">
+                    MyCook is your everyday companion in the kitchen. We believe cooking should be simple, enjoyable, and accessible to everyone—whether you’re making your first meal or perfecting a family favorite.
+                    At MyCook, you’ll find carefully crafted recipes, practical cooking tips, and inspiration drawn from kitchens around the world. Our goal is to help you cook with confidence, using ingredients you love and techniques that make sense.
+                    We’re passionate about real food, real flavors, and real people. That’s why MyCook focuses on clear instructions, honest recipes, and ideas that fit into busy, modern lives.
+                    From quick weekday meals to special dishes worth sharing, MyCook is where home cooking comes to life.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

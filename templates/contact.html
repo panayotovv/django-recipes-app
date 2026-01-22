@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="flex relative bg-cover bg-center w-full items-center justify-center"
+          style="height: calc(100vh - 60px); background-image: url('{% static "images/image.jpg" %}');">
+        <div>
+            <div class="recipe-card opacity-0 translate-y-10 transition-all duration-700 bg-slate-900 max-w-3xl mx-auto my-15 rounded-2xl p-8 mt-0">
+                <h1 class="text-white text-center text-3xl font-bold mb-4">
+                    Contacts
+                </h1>
+
+                <ul class="text-white text-center space-y-2">
+                    <li class="cursor-default">Email: info@mycook.com</li>
+                    <li class="cursor-default">Phone: +1 234 567 890</li>
+                    <li><a href="#" class="hover:text-slate-300">Facebook</a></li>
+                    <li><a href="#" class="hover:text-slate-300">Instagram</a></li>
+                    <li><a href="#" class="hover:text-slate-300">Twitter</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

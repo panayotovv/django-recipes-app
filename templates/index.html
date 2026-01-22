@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div
+          class="relative bg-cover bg-center w-full"
+          style="height: calc(100vh - 60px); background-image: url('{% static "images/image.jpg" %}');">
+        <div class="flex flex-col items-center justify-center h-full text-center gap-6">
+            <h1 class="recipe-card opacity-0 translate-y-10 transition-all duration-700 text-white text-5xl font-normal font-serif mt-10 cursor-default">
+                Cook. Create. Celebrate Every Bite.
+            </h1>
+            {% if user.is_authenticated %}
+                <a href="{% url 'recipes' %}">
+            {% else %}
+                <a href="{% url 'login' %}">
+            {% endif %}
+                <button class="recipe-card opacity-0 translate-y-10 transition-all duration-700 text-white rounded-3xl px-10 py-3.5 bg-slate-900 cursor-pointer
+                            hover:bg-slate-800">
+                    Join Now
+                </button>
+            </a>
+        </div>
+    </div>
+    <h1 class="recipe-card opacity-0 translate-y-10 transition-all duration-700 mt-10 text-4xl font-normal font-serif text-center text-slate-900">Our Specialties</h1>
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    {% for recipe in recipes %}
+        <div class="recipe-card bg-white rounded-xl overflow-hidden shadow-lg opacity-0 translate-y-10 transition-all duration-700">
+        <a href="{% url 'recipe-detail' recipe.pk %}">
+            <img src='{{ recipe.image }}' class="w-full h-48 object-cover cursor-pointer">
+        </a>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2 text-slate-900">{{ recipe.title }}</h3>
+                <p class="text-gray-600 mb-4">{{ recipe.description }}</p>
+                <a href="{% url 'recipe-detail' recipe.pk %}" class="text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded transition-colors duration-300">View Recipe</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+<section class="bg-slate-100 py-16">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl font-serif font-normal mb-4 text-slate-900">
+      What Our Customers Are Saying
+    </h2>
+    <p class="text-gray-600 mb-12">
+      Real stories from people who love cooking with MyCook
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      
+      <div class="recipe-card bg-white rounded-xl p-8 shadow-lg opacity-0 translate-y-10 transition-all duration-700">
+        <p class="text-gray-600 mb-6">
+          “MyCook completely changed how I cook at home. The recipes are easy, delicious, and beautifully presented.”
+        </p>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
+            A
+          </div>
+          <div class="text-left">
+            <h4 class="font-semibold text-slate-900">Anna Peterson</h4>
+            <span class="text-sm text-gray-500">Home Chef</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-card bg-white rounded-xl p-8 shadow-lg opacity-0 translate-y-10 transition-all duration-700">
+        <p class="text-gray-600 mb-6">
+          “I love how simple and inspiring MyCook is. It helped me gain confidence in the kitchen.”
+        </p>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
+            M
+          </div>
+          <div class="text-left">
+            <h4 class="font-semibold text-slate-900">Mark Johnson</h4>
+            <span class="text-sm text-gray-500">Food Enthusiast</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-card bg-white rounded-xl p-8 shadow-lg opacity-0 translate-y-10 transition-all duration-700">
+        <p class="text-gray-600 mb-6">
+          “From quick dinners to special occasions, MyCook always has the perfect recipe for me.”
+        </p>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
+            S
+          </div>
+          <div class="text-left">
+            <h4 class="font-semibold text-slate-900">Sophia Lee</h4>
+            <span class="text-sm text-gray-500">Busy Parent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
