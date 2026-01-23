@@ -1,0 +1,56 @@
+[
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$oLg60dhNKYLy4Ga9EjuWuh$xIC74bP7/3YygPvLg/nzbNbFmPnHzfwxXOnfD6y3JdI=",
+    "last_login": "2026-01-22T22:52:56.328Z",
+    "is_superuser": false,
+    "username": "aa8876d0-8032-459f-a385-5393e13a20bc",
+    "first_name": "Mihail",
+    "last_name": "Panayotov",
+    "email": "misho.niki2003@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-22T22:52:47.018Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$y1QSfOOmWfzme2oz78dsw1$eSDZ0ycw8PdfZf5t6wiMR/PGBu0twOeAdydgNt6RhRs=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "misho",
+    "first_name": "",
+    "last_name": "",
+    "email": "misho@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-22T23:52:32.982Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$krGmYgEd64AVnoZ6agWGm0$8vadimPmf7VThrtCui8R0QBeADatZtRxWw+tQJM5Qgc=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "gosho",
+    "first_name": "",
+    "last_name": "",
+    "email": "gosho@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-22T23:53:48.561Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
