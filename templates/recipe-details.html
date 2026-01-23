@@ -14,23 +14,24 @@
 
       <div class="relative">
         <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="w-full h-72 object-cover rounded-t-xl" />
-
         <div class="absolute inset-0 bg-black/20 rounded-t-xl z-10 pointer-events-none"></div>
       </div>
 
-      <button class="favoriteBtn absolute top-4 right-4 z-50 text-4xl p-2 hover:scale-110 transition-transform"
-              data-recipe-id="{{ recipe.id }}">
-          {% if user in recipe.favorited_by.all %}
-              ❤️
-          {% else %}
-              🤍
-          {% endif %}
-      </button>
-
       <div class="p-6">
-        <h1 class="text-3xl font-bold mb-2 text-slate-900">
-          {{ recipe.title }}
-        </h1>
+
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-3xl font-bold text-slate-900">
+            {{ recipe.title }}
+          </h1>
+          <button class="favoriteBtn text-3xl p-1 hover:scale-110 transition-transform"
+                  data-recipe-id="{{ recipe.id }}">
+              {% if user in recipe.favorited_by.all %}
+                  ❤️
+              {% else %}
+                  🤍
+              {% endif %}
+          </button>
+        </div>
 
         <div class="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
           <span>⏱ Prep: {{ recipe.prep_time }} min</span>
