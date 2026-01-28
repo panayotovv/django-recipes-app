@@ -12,8 +12,8 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, C
 from rest_framework import generics
 from Recipes.forms import CustomUserCreationForm, CustomEditForm, ProfileForm, ProfileImageForm, \
     RecipeAddForm, InstructionsForm, RecipeIngredientFormSet
-from Recipes.models import Recipe, RecipeIngredient
-from Recipes.serializers import RecipeSerializer
+from Recipes.models import Recipe, RecipeIngredient, Instructions, Ingredient
+from Recipes.serializers import RecipeSerializer, InstructionsSerializer, IngredientSerializer
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -192,10 +192,27 @@ class RecipeListCreate(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
-
 class RecipeRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    lookup_field = 'pk'
+
+class InstructionsList(generics.ListAPIView):
+    queryset = Instructions.objects.all()
+    serializer_class = InstructionsSerializer
+
+class InstructionsRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Instructions.objects.all()
+    serializer_class = InstructionsSerializer
+    lookup_field = 'pk'
+
+class IngredientListCreate(generics.ListCreateAPIView):
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
+
+class IngredientsRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
     lookup_field = 'pk'
 
 

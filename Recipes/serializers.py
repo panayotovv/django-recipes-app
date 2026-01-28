@@ -3,9 +3,19 @@ from .models import Recipe, Ingredient, RecipeIngredient, Instructions
 
 
 class InstructionsSerializer(serializers.ModelSerializer):
+    recipe = serializers.CharField(source='recipe.title')
+    instructions = serializers.CharField(source='text')
+
     class Meta:
         model = Instructions
-        fields = ['text']
+        fields = ['id', 'recipe', 'instructions']
+
+class IngredientSerializer(serializers.ModelSerializer):
+    ingredient = serializers.CharField(source='name')
+
+    class Meta:
+        model = Ingredient
+        fields = ['id', 'ingredient']
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
