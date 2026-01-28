@@ -10,7 +10,9 @@ dj-config-url==0.1.1
 Django==6.0.1
 django-browser-reload==1.21.0
 django-multiselectfield==1.0.1
+django-rest-framework==0.1.0
 django-tailwind==4.4.2
+djangorestframework==3.16.1
 gunicorn==23.0.0
 honcho==2.0.0
 idna==3.11

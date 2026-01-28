@@ -5,7 +5,8 @@ from MyCook import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Recipes.urls'))
+    path('', include('Recipes.web_urls')),
+    path('api/', include('Recipes.api_urls'))
 ]
 
 

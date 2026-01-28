@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.forms import inlineformset_factory
 
-from Recipes.models import Profile
+from Recipes.models import Profile, Recipe, Instructions, RecipeIngredient
 import uuid
 
 class CustomUserCreationForm(UserCreationForm):
@@ -26,8 +27,7 @@ class CustomUserCreationForm(UserCreationForm):
 
         if commit:
             user.save()
-            profile, _ = Profile.objects.get_or_create(user=user)
-            profile.save()
+            Profile.objects.get_or_create(user=user)
 
         return user
 
@@ -35,6 +35,59 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomLoginForm(AuthenticationForm):
     pass
 
+class RecipeAddForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = '__all__'
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+            'image': forms.FileInput(attrs={'class': 'hidden', 'id': 'image-upload'}),
+            'prep_time': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+            'cook_time': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+            'description': forms.Textarea(attrs={'rows': 1, 'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+            'ingredients': forms.Textarea(attrs={'rows': 2,'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+            'instructions': forms.Textarea(attrs={'rows': 2, 'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.author = self.user
+        if commit:
+            instance.save()
+        return instance
+
+class InstructionsForm(forms.ModelForm):
+    class Meta:
+        model = Instructions
+        fields = '__all__'
+        widgets = {
+            'text': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none'}),
+        }
+
+
+class RecipeIngredientForm(forms.ModelForm):
+    class Meta:
+        model = RecipeIngredient
+        fields = ['ingredient', 'quantity', 'unit']
+        widgets = {
+            'ingredient': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+            'quantity': forms.NumberInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+            'unit': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+        }
+
+
+RecipeIngredientFormSet = inlineformset_factory(
+    Recipe,
+    RecipeIngredient,
+    form=RecipeIngredientForm,
+    extra=1,
+    can_delete=True
+)
 
 class CustomEditForm(forms.ModelForm):
     password = forms.CharField(

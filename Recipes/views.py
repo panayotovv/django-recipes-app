@@ -8,9 +8,12 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView
-from Recipes.forms import CustomUserCreationForm, CustomEditForm, ProfileForm, ProfileImageForm
+from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView
+from rest_framework import generics
+from Recipes.forms import CustomUserCreationForm, CustomEditForm, ProfileForm, ProfileImageForm, \
+    RecipeAddForm, InstructionsForm, RecipeIngredientFormSet
 from Recipes.models import Recipe, RecipeIngredient
+from Recipes.serializers import RecipeSerializer
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -149,6 +152,51 @@ def toggle_favorite(request, recipe_id):
         liked = True
 
     return JsonResponse({"liked": liked})
+
+
+class AddRecipeView(CreateView):
+    model = Recipe
+    form_class = RecipeAddForm
+    template_name = 'recipe-add.html'
+    success_url = reverse_lazy("profile")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['instructions_form'] = InstructionsForm(self.request.POST)
+            context['ingredient_formset'] = RecipeIngredientFormSet(self.request.POST)
+        else:
+            context['instructions_form'] = InstructionsForm()
+            context['ingredient_formset'] = RecipeIngredientFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        instructions_form = context['instructions_form']
+        ingredient_formset = context['ingredient_formset']
+
+        if instructions_form.is_valid() and ingredient_formset.is_valid():
+            instructions = instructions_form.save()
+            self.object = form.save(commit=False)
+            self.object.instructions = instructions
+            self.object.author = self.request.user
+            self.object.save()
+            ingredient_formset.instance = self.object
+            ingredient_formset.save()
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+class RecipeListCreate(generics.ListCreateAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+
+
+class RecipeRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+    lookup_field = 'pk'
 
 
 

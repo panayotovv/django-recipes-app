@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Intersection Observer for card animations ---
     const cards = document.querySelectorAll('.recipe-card');
 
     const observer = new IntersectionObserver(entries => {
@@ -12,8 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cards.forEach(card => observer.observe(card));
 
-    // --- Favorite button AJAX ---
     const favBtns = document.querySelectorAll(".favoriteBtn");
+
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            document.cookie.split(";").forEach(cookie => {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    };
 
     favBtns.forEach(favBtn => {
         favBtn.addEventListener("click", () => {
@@ -28,12 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => response.json())
             .then(data => {
-                if (data.liked) {
-                    favBtn.textContent = "❤️";
-                } else {
-                    favBtn.textContent = "🤍";
-                }
-                // small animation
+                favBtn.textContent = data.liked ? "❤️" : "🤍";
                 favBtn.classList.add("scale-110");
                 setTimeout(() => favBtn.classList.remove("scale-110"), 200);
             })
@@ -41,23 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- CSRF helper ---
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(";");
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.startsWith(name + "=")) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    // --- Recipe search filter ---
     const searchInput = document.getElementById('recipeSearch');
 
     if (searchInput) {
@@ -65,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const query = searchInput.value.toLowerCase();
 
             cards.forEach(card => {
-                const titleElem = card.querySelector('h1, h3'); // support h1 or h3
+                const titleElem = card.querySelector('h1, h3');
                 if (!titleElem) return;
 
                 const title = titleElem.textContent.toLowerCase();
@@ -73,4 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    const input = document.getElementById('image-upload');
+    const fileName = document.getElementById('file-name');
+
+    input.addEventListener('change', function() {
+      if (input.files.length > 0) {
+          fileName.textContent = input.files[0].name;
+      } else {
+          fileName.textContent = 'No file chosen';
+      }
+  });
 });
