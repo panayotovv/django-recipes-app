@@ -174,7 +174,12 @@ class AddRecipeView(CreateView):
         context = self.get_context_data()
         instructions_form = context['instructions_form']
         ingredient_formset = context['ingredient_formset']
+        print("Instructions valid:", instructions_form.is_valid())
+        print("Instructions errors:", instructions_form.errors)
 
+        print("Formset valid:", ingredient_formset.is_valid())
+        print("Formset errors:", ingredient_formset.errors)
+        print("Non-form errors:", ingredient_formset.non_form_errors())
         if instructions_form.is_valid() and ingredient_formset.is_valid():
             instructions = instructions_form.save()
             self.object = form.save(commit=False)
@@ -187,6 +192,18 @@ class AddRecipeView(CreateView):
         else:
             return self.form_invalid(form)
 
+    def form_invalid(self, form):
+        print("MAIN FORM INVALID")
+        print("Main form errors:", form.errors)
+
+        context = self.get_context_data()
+        ingredient_formset = context['ingredient_formset']
+        instructions_form = context['instructions_form']
+
+        print("Instructions errors:", instructions_form.errors)
+        print("Formset errors:", ingredient_formset.errors)
+
+        return super().form_invalid(form)
 
 class RecipeListCreate(generics.ListCreateAPIView):
     queryset = Recipe.objects.all()

@@ -13,6 +13,7 @@ class InstructionsSerializer(serializers.ModelSerializer):
 class IngredientSerializer(serializers.ModelSerializer):
     ingredient = serializers.CharField(source='name')
 
+
     class Meta:
         model = Ingredient
         fields = ['id', 'ingredient']

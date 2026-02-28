@@ -24,7 +24,7 @@
                     bg-slate-700 text-white py-2 rounded-lg hover:bg-slate-600 transition">
         📷 Choose Image
       </label>
-      <p id="file-name" class="text-gray-300 text-sm mt-1">No file chosen</p>
+      <p id="file-name" class="text-gray-300 text-sm mt-1"></p>
       {{ form.image }}
     </div>
 
@@ -53,8 +53,7 @@
       {{ ingredient_formset.management_form }}
       {% for form in ingredient_formset %}
         <div class=" p-2 bg-slate-800">
-          {{ form.ingredient.label_tag }} {{ form.ingredient }}
-
+        {{ form.ingredient_name }}
           <div class="flex space-x-2">
         <div class="flex-1">
           {{ form.quantity.label_tag }} {{ form.quantity }}
@@ -65,9 +64,6 @@
           {{ form.unit.errors }}
         </div>
       </div>
-          {% if form.DELETE %}
-            {{ form.DELETE }} <span class="text-red-400">Delete</span>
-          {% endif %}
           {{ form.errors }}
         </div>
       {% endfor %}
@@ -81,7 +77,7 @@
 
     <div class="mt-6">
   <button type="submit"
-          class="w-full bg-slate-600 text-white py-2 rounded-lg font-semibold hover:bg-slate-700 transition cursor-pointer">
+          class="w-full bg-slate-600 text-white py-2 rounded-lg font-semibold hover:bg-slate-700 transition cursor-pointer mt-8">
     Add Recipe
   </button>
 </div>
