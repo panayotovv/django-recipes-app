@@ -34,6 +34,7 @@
 ![App Screenshot](screenshots/specialties.png)
 ![App Screenshot](screenshots/detail.png)
 ![App Screenshot](screenshots/register.png)
+![App Screenshot](screenshots/profile.png)
 ![App Screenshot](screenshots/rest.png)
 
 
