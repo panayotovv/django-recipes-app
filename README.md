@@ -8,12 +8,7 @@
 
 [![Made With](https://img.shields.io/badge/Made%20with-❤️%20%26%20JavaScript-red?style=flat-square)](https://github.com)
 [![REST API](https://img.shields.io/badge/REST-API-blue?style=flat-square)](https://github.com)
-[![Auth](https://img.shields.io/badge/Auth-JWT-green?style=flat-square)](https://github.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
-
-[Live Demo](#) · [Report Bug](issues) · [Request Feature](issues)
-
----
 
 </div>
 
@@ -35,47 +30,12 @@
 
 ## 🖥️ Screenshots
 
-> _Add your screenshots here_
+![App Screenshot](screenshots/index.png)
+![App Screenshot](screenshots/specialties.png)
+![App Screenshot](screenshots/detail.png)
+![App Screenshot](screenshots/register.png)
+![App Screenshot](screenshots/rest.png)
 
-| Feed | Recipe Detail | Profile |
-|------|--------------|---------|
-| ![feed](#) | ![recipe](#) | ![profile](#) |
-
----
-
-## 🔌 API Endpoints
-
-### Auth
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/auth/register` | Register a new user |
-| `POST` | `/api/auth/login` | Log in and receive a token |
-| `POST` | `/api/auth/logout` | Invalidate current session |
-
-### Recipes
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/recipes` | Get all recipes |
-| `GET` | `/api/recipes/:id` | Get a single recipe |
-| `POST` | `/api/recipes` | Create a new recipe _(auth required)_ |
-| `PUT` | `/api/recipes/:id` | Update a recipe _(auth required)_ |
-| `DELETE` | `/api/recipes/:id` | Delete a recipe _(auth required)_ |
-
-### Likes
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/recipes/:id/like` | Like a recipe _(auth required)_ |
-| `DELETE` | `/api/recipes/:id/like` | Unlike a recipe _(auth required)_ |
-| `GET` | `/api/recipes/:id/likes` | Get like count for a recipe |
-
-### Profile
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/users/:id` | Get a user's public profile |
-| `GET` | `/api/users/:id/liked` | Get all recipes liked by a user |
-| `PUT` | `/api/users/:id` | Update profile info _(auth required)_ |
-
----
 
 
 
