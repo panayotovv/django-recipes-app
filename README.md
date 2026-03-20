@@ -6,7 +6,7 @@
 
 **Discover, save, and share recipes you love.**
 
-[![Made With](https://img.shields.io/badge/Made%20with-26%20JavaScript-red?style=flat-square)](https://github.com)
+[![Made With](https://img.shields.io/badge/Made%20with-%20JavaScript-red?style=flat-square)](https://github.com)
 [![REST API](https://img.shields.io/badge/REST-API-blue?style=flat-square)](https://github.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
